@@ -1,0 +1,22 @@
+service: cepless
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+	region: sa-east-1
+	memorySize: 256
+
+functions:
+  cep:
+    handler: finder.cep
+    events:
+      - http:
+          path: cep/{number}
+          method: get
+          request:
+            parameters:
+              paths:
+                number: true
+
+plugins:
+  - serverless-offline
